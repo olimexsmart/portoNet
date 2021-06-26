@@ -5,4 +5,7 @@ CREATE TABLE `log` (
 	`status` TINYINT(4) NULL DEFAULT NULL,
 	PRIMARY KEY (`ID`) USING BTREE
 )
-COMMENT='Every request to the system is logged here.';
+COMMENT='Every request to the system is logged here.'
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
