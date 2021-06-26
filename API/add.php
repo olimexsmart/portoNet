@@ -31,6 +31,7 @@ switch ($interval) {
         break;
     case 3:
         $interval = '1 YEAR';
+        break;
     default:
         http_response_code(406);
         die("Interval inserted not valid.");
