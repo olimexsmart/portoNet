@@ -41,8 +41,11 @@ function verifyMP($sql, $MP)
     $query = "SELECT * FROM system WHERE system.ID=1 AND system.MP='$MP'";
     $result = queryWithError($sql, $query);
 
-    if ($result->num_rows != 1) {
+    if ($result->num_rows != 1) { // Error
         http_response_code(401);
         die("Incorrect Master Password");
+    } else { // Reset possible error states
+        $query = "UPDATE system SET nAttempts = 0, lastAttempt = NULL, lockedUntil = NULL WHERE ID = 1";
+        queryWithError($sql, $query);
     }
 }
