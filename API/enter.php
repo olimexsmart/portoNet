@@ -4,6 +4,8 @@ require 'commonCode.php';
 
 $sql = initSQLConnection();
 
+// TODO populate log table
+
 // Get input args
 $uKey = $_GET['uKey'];
 $justTest = $_GET['justTest'];

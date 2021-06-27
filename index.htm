@@ -17,130 +17,37 @@
             <!-- Welcome card -->
             <div class="card text-center">
                 <div class="card-body bg-transparent">
-                    <h4 class="card-title">PortoNet</h4>
-                    <p class="card-text">Inserisci la chiave di accesso</p>
+                    <h1 class="card-title">PortoNet</h1>
                     <p class="card-text" id="count1"></p>
                     <p class="card-text" id="count2"></p>
-                    <a href="http://vabbuo.it" class="mt-2 btn btn-success" title="Vabbuò dai guardati ancora due frasi">vabbuo.it</a>
-                    <a href="http://olimexsmart.it" class="mt-2 btn btn-primary" title="Scopri tutta la storia, in inglese">olimexsmart.it</a>
-                    <a href="/admin.htm" class="mt-2 btn btn-danger" title="Smanetta">Amministrazione</a>
+                    <a href="admin.htm" class="mt-2 btn btn-danger">Amministrazione</a>
                 </div>
             </div>
 
             <br>
-
-            <form id="access" method="post">
-                <!-- Text inputs -->
-                <div class="form-group row">
-                    <label for="k" class="mt-2 col-sm-2 col-form-label">
-                        <b>Password</b>
-                    </label>
-                    <div class="mt-2 col-sm-10">
-                        <input type="password" class="form-control" name="k" id="key" placeholder="Chiave di accesso">
-                    </div>
-                    <div class="mt-5 col-sm-12 text-center">
-                        <button type="button" class="btn btn-success btn-lg btn-block" id="submit">Fai un tentativo</button>
-                    </div>
+            <!-- Text inputs -->
+            <div class="row">
+                <div class="mt-2">
+                    <input type="password" class="form-control" name="k" id="key" placeholder="Chiave di accesso">
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal open -->
-    <div class="modal fade" id="open" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Ma che bravo!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Vieni su, a pra foco caro!
-                </div>
-                <div class="modal-footer">
-                    <a href="http://vabbuo.it" class="mt-2 btn btn-success" title="Vabbuò dai guardati ancora due frasi">Dai entra</a>
+                <div class="mt-2 d-grid gap-2">
+                    <button type="button" class="btn btn-success btn-lg" id="submit">Entra</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal locked -->
-    <div class="modal fade" id="locked" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
+    <!-- Modal  -->
+    <div class="modal fade" id="open" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Sistema bloccato!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title">Risultato</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    Chiama Olli che te lo sblocca
-                </div>
+                <div class="modal-body" id="bodyMod"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Sbatti</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal forbidden -->
-    <div class="modal fade" id="forbidden" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Ahia!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Guarda un po' meglio perché hai scritto qualcosa di sbagliato
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Riprova</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal tooMany -->
-    <div class="modal fade" id="tooMany" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Malissimo!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Le credenziali sono state sbagliate troppe volte, devi aspettare un po' di tempo prima di riprovare
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Aspetterò</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal generic -->
-    <div class="modal fade" id="default" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Boh?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Qualcosa è andato storto ma non saprei cosa
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Vabbuò</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

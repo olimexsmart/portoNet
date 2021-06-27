@@ -6,8 +6,8 @@
     <title>PortoneNet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="olliout.css">
-    <link rel="stylesheet" href="loader.css">
+    <link rel="stylesheet" href="css/olliout.css">
+    <link rel="stylesheet" href="css/loader.css">
 </head>
 
 <body style="background-color: CORAL;">
@@ -20,176 +20,86 @@
                     <h4 class="card-title">Amministrazione</h4>
                     <p class="card-text">Serve una Master Password per poter fare modifiche</p>
                     <p id="rtc"></p>
-                    <a href="/index.htm" class="mt-2 btn btn-info" title="Magari funziona">Pagina Login</a>
+                    <a href="index.htm" class="mt-2 btn btn-info" title="Magari funziona">Pagina Login</a>
                 </div>
             </div>
 
             <br>
 
-            <!-- Action selection-->
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-legend col-sm-2"><b>Sistema</b></legend>
-                    <div class="btn-group col-sm-10" data-toggle="buttons">
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="a" id="r1" autocomplete="off">Blocca</label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="a" id="r2" autocomplete="off">Svuota</label>
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="a" id="r3" autocomplete="off">Nuovo</label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="a" id="r4" autocomplete="off">Test</label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="a" id="r5" autocomplete="off">Keys</label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="a" id="r6" autocomplete="off">Log</label>
-                    </div>
-                </div>
-            </fieldset>
+            <!-- Mode -->
+            <div class="row">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnNuovo" autocomplete="off" checked>
+                    <label class="btn btn-secondary" for="btnNuovo">Nuovo</label>
 
-            <!-- Password time validity -->
-            <fieldset class="form-group" id="timeval">
-                <div class="row">
-                    <legend class="col-form-legend col-sm-2"><b>Validità</b></legend>
-                    <div class="btn-group col-sm-10" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="v" id="v1" value="21600" autocomplete="off">6 Ore</label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="v" id="v2" value="259200" autocomplete="off">3 Giorni</label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="v" id="v3" value="2592000" autocomplete="off">30 Giorni</label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="v" id="v4" value="31536000" autocomplete="off">1 Anno</label>
-                    </div>
-                </div>
-            </fieldset>
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnSvuota" autocomplete="off">
+                    <label class="btn btn-secondary" for="btnSvuota">Svuota</label>
 
-            <form id="access" method="post">
-                <!-- Text inputs -->
-                <div class="form-group row">
-                    <!-- Administrator inputs -->
-                    <label for="key" class="col-sm-2 col-form-label adminpassword">
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnRevoca" autocomplete="off">
+                    <label class="btn btn-secondary" for="btnRevoca">Revoca</label>
+
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnTest" autocomplete="off">
+                    <label class="btn btn-secondary" for="btnTest">Test</label>
+
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnKeys" autocomplete="off">
+                    <label class="btn btn-secondary" for="btnKeys">Keys</label>
+
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnLog" autocomplete="off">
+                    <label class="btn btn-secondary" for="btnLog">Log</label>
+                </div>
+
+                <!-- Password time validity -->
+                <div class="btn-group mt-3" role="group" id="oreGroup">
+                    <input type="radio" class="btn-check" name="btnradio2" id="btn6Ore" autocomplete="off" checked>
+                    <label class="btn btn-secondary" for="btn6Ore">6 Ore</label>
+
+                    <input type="radio" class="btn-check" name="btnradio2" id="btn3Giorni" autocomplete="off">
+                    <label class="btn btn-secondary" for="btn3Giorni">3 Giorni</label>
+
+                    <input type="radio" class="btn-check" name="btnradio2" id="btn30Giorni" autocomplete="off">
+                    <label class="btn btn-secondary" for="btn30Giorni">30 Giorni</label>
+
+                    <input type="radio" class="btn-check" name="btnradio2" id="btn1Anno" autocomplete="off">
+                    <label class="btn btn-secondary" for="btn1Anno">1 Anno</label>
+                </div>
+
+                <!-- Administrator inputs -->
+                <div class="mt-2" id="adminpassword">
+                    <label for="MP" class="col-form-label">
                         <b>Master Password</b>
                     </label>
-                    <div class="mt-2 col-sm-10 adminpassword">
-                        <input type="password" class="form-control passwd" name="ak" id="key" placeholder="Chiave Admin" title="Mi raccomando">
-                    </div>
+                    <input type="password" class="form-control" name="ak" id="MP" placeholder="Chiave Admin">
+                </div>
 
-                    <!-- User inputs -->
-                    <label for="userkey" class="mt-2 col-sm-2 col-form-label userpassword">
+                <!-- User inputs -->
+                <div class="mt-2" id="userpassword">
+                    <label for="userkey" class="mt-2 col-form-label">
                         <b>Password</b>
                     </label>
-                    <div class="mt-2 col-sm-10 userpassword">
-                        <input type="password" class="form-control passwd" name="k" id="userkey" placeholder="Chiave Utente" title="Mi raccomando">
-                    </div>
-
-
-                    <!-- Confirm button -->
-                    <div class="mt-2 col-sm-12 text-center">
-                        <button type="button" class="btn btn-success btn-lg btn-block" title="Daje" id="submit">Agisci</button>
-                    </div>
+                    <input type="password" class="form-control" name="k" id="userkey" placeholder="Chiave Utente">
                 </div>
-            </form>
+
+                <!-- Confirm button -->
+                <div class="mt-2 d-grid gap-2">
+                    <button type="button" class="btn btn-success btn-lg" id="submit">Agisci</button>
+                </div>
+            </div>
 
             <ul class="list-group" id="list" type="hidden"></ul>
         </div>
     </div>
 
-    <!-- Modal correctly completed -->
-    <div class="modal fade" id="completed" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
+    <!-- Modal  -->
+    <div class="modal fade" id="open" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Ottimo!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title">Risultato</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    Le modifiche sono state attuate!
-                </div>
+                <div class="modal-body" id="bodyMod"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Fai dell'altro</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal locked -->
-    <div class="modal fade" id="locked" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Sistema bloccato!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Dovrai sbloccarlo dinuovo perché qualcuno possa entrare
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Bene</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal forbidden -->
-    <div class="modal fade" id="forbidden" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Ahia!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Hai sbagliato a scrivere qualcosa, almeno spero
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Riprova</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal tooMany -->
-    <div class="modal fade" id="tooMany" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Malissimo!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Le credenziali sono state sbagliate troppe volte, devi aspettare un po' di tempo prima di riprovare
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Aspetterò</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal generic -->
-    <div class="modal fade" id="default" tabindex="-1" role="dialog" aria-labelledby="thanksLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thanksLabel">Boh?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Qualcosa è andato storto ma non saprei cosa
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Vabbuò</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
