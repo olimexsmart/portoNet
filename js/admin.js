@@ -12,11 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Modal
     const openMod = new bootstrap.Modal(document.getElementById('open'));
-    const bodyMod = document.getElementById('bodyMod');    
+    const bodyMod = document.getElementById('bodyMod');
+
+    // List
+    const listOl = document.getElementById('list');
 
     // Remember the last button clicked
     let mode = 'add.php';
     let interval = 0;
+    let justTest = 0;
 
     // Manage mode button group
     document.getElementById('btnNuovo').addEventListener('click', () => {
@@ -29,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.add('d-none');
         adminStuff.classList.remove('d-none');
-        mode = 'empty.php';
+        mode = 'revokeAll.php';
     });
     document.getElementById('btnRevoca').addEventListener('click', () => {
         oreDiv.classList.add('d-none');
@@ -41,19 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.remove('d-none');
         adminStuff.classList.add('d-none');
-        mode = 'test.php';
+        mode = 'enter.php';
+        justTest = 1;
     });
     document.getElementById('btnKeys').addEventListener('click', () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.add('d-none');
         adminStuff.classList.remove('d-none');
-        mode = 'keys.php';
+        mode = 'keyList.php';
     });
     document.getElementById('btnLog').addEventListener('click', () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.add('d-none');
         adminStuff.classList.remove('d-none');
-        mode = 'log.php';
+        mode = 'logList.php';
     });
 
     // Manage interval button group
@@ -70,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
         interval = 3;
     });
 
-
     // Simulate click event when pressing enter
     MPIn.addEventListener('keydown', event => {
         if (event.key === 'Enter') {
@@ -85,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Main button submission
     submitBtn.addEventListener('click', () => {
-        const url = `API/${mode}?MP=${MP.value}&uKey=${userkeyIn.value}&interval=${interval}`;
+        const url = `API/${mode}?MP=${MP.value}&uKey=${userkeyIn.value}&interval=${interval}&justTest=${justTest}`;
         const options = {
             method: "GET",
             timeout: 3000
@@ -93,13 +97,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
         fetch(url, options).then(response => {
             loaderDiv.style.display = "none";
-            response.text().then((text) => {
-                bodyMod.innerHTML = `<b>HTTP Status Code: </b>${response.status}</br>
-                    <b>Response: </b>${text}`;
-            });
 
-            openMod.show();
-            getCounters();
+            // Do not open the modal if we need to display the list
+            if (mode == 'keyList.php' || mode == 'logList.php') {
+                response.json().then((j) => {
+                    listOl.classList.remove('d-none');
+                    listOl.innerHTML = '';
+                    for (let i = 0; i < j.length; i++) {
+                        let html = `<li class="list-group-item d-flex justify-content-between align-items-start">`+
+                        `<div class="ms-2 me-auto">`+
+                        `<div class="fw-bold fs-4">${j[i].uKey}</div>`+
+                        `<b>Expiration date:</b> ${j[i].expDate}</br>`+
+                        `<b>Last used:</b> ${j[i].lastUsed}</br>`+
+                        `<b>Used</b> ${j[i].nUsed} times`+
+                        `</div>`+
+                        `<span class="badge bg-${j[i].revoked=='0' ? 'primary' : 'danger'} rounded-pill">`+
+                        `${j[i].revoked=='0' ? 'OK' : 'REVOKED'}`+
+                        `</span>`+
+                        `</li>`;
+                        listOl.innerHTML += html;
+                    }
+                });
+            } else {
+                listOl.classList.add('d-none');
+                response.text().then((text) => {
+                    bodyMod.innerHTML = `<b>HTTP Status Code: </b>${response.status}</br>
+                    <b>Response: </b>${text}`;
+                    openMod.show();
+                });
+            }
+
+            
         });
 
         loaderDiv.style.display = "block";

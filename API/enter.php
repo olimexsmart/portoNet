@@ -8,7 +8,7 @@ $sql = initSQLConnection();
 
 // Get input args
 $uKey = $_GET['uKey'];
-$justTest = $_GET['justTest'];
+$justTest = (int) $_GET['justTest'];
 
 // Check if system is not locked
 $query = "SELECT * FROM system WHERE ID = 1 AND lockedUntil > NOW()";
