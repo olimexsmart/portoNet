@@ -8,6 +8,8 @@ $sql = initSQLConnection();
 $MP = $_GET['MP'];
 $uKey = $_GET['uKey'];
 
+logRequest($sql, "revoke", $MP, $uKey);
+
 // Verify Master Password
 verifyMP($sql, $MP);
 

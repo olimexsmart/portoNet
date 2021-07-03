@@ -7,13 +7,13 @@ $sql = initSQLConnection();
 // Get input args
 $MP = $_GET['MP'];
 
-logRequest($sql, "keyList", $MP);
+logRequest($sql, "logList", $MP);
 
 // Verify Master Password
 verifyMP($sql, $MP);
 
 // TODO add filters
-$query = "SELECT * FROM passwords ORDER BY lastUsed DESC";
+$query = "SELECT * FROM logs ORDER BY dateRequest DESC";
 $result = queryWithError($sql, $query);
 
 // Collect results

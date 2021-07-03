@@ -99,22 +99,37 @@ document.addEventListener("DOMContentLoaded", () => {
             loaderDiv.style.display = "none";
 
             // Do not open the modal if we need to display the list
-            if (mode == 'keyList.php' || mode == 'logList.php') {
+            if (mode == 'keyList.php') {
                 response.json().then((j) => {
                     listOl.classList.remove('d-none');
                     listOl.innerHTML = '';
                     for (let i = 0; i < j.length; i++) {
-                        let html = `<li class="list-group-item d-flex justify-content-between align-items-start">`+
-                        `<div class="ms-2 me-auto">`+
-                        `<div class="fw-bold fs-4">${j[i].uKey}</div>`+
-                        `<b>Expiration date:</b> ${j[i].expDate}</br>`+
-                        `<b>Last used:</b> ${j[i].lastUsed}</br>`+
-                        `<b>Used</b> ${j[i].nUsed} times`+
-                        `</div>`+
-                        `<span class="badge bg-${j[i].revoked=='0' ? 'primary' : 'danger'} rounded-pill">`+
-                        `${j[i].revoked=='0' ? 'OK' : 'REVOKED'}`+
-                        `</span>`+
-                        `</li>`;
+                        let html = `<li class="list-group-item d-flex justify-content-between align-items-start">` +
+                            `<div class="ms-2 me-auto">` +
+                            `<div class="fw-bold fs-4">${j[i].uKey}</div>` +
+                            `<b>Last used:</b> ${j[i].lastUsed}</br>` +
+                            `<b>Expiration date:</b> ${j[i].expDate}</br>` +
+                            `<b>Used</b> ${j[i].nUsed} times` +
+                            `</div>` +
+                            `<span class="badge bg-${j[i].revoked == '0' ? 'primary' : 'danger'} rounded-pill">` +
+                            `${j[i].revoked == '0' ? 'OK' : 'REVOKED'}` +
+                            `</span>` +
+                            `</li>`;
+                        listOl.innerHTML += html;
+                    }
+                });
+            } else if (mode == 'logList.php') {
+                response.json().then((j) => {
+                    listOl.classList.remove('d-none');
+                    listOl.innerHTML = '';
+                    for (let i = 0; i < j.length; i++) {
+                        let html = `<li class="list-group-item d-flex justify-content-between align-items-start">` +
+                            `<div class="ms-2 me-auto">` +
+                            `<div class="fw-bold fs-4">${j[i].APIName}</div>` +
+                            `<b>Date:</b> ${j[i].dateRequest}</br>` +
+                            `<b>Parameters:</b> ${j[i].params}</br>` +
+                            `</div>` +
+                            `</li>`;
                         listOl.innerHTML += html;
                     }
                 });
@@ -127,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            
+
         });
 
         loaderDiv.style.display = "block";

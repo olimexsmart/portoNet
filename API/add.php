@@ -9,6 +9,8 @@ $MP = $_GET['MP'];
 $uKey = $_GET['uKey'];
 $interval = intval($_GET['interval']);
 
+logRequest($sql, "add", $MP, $uKey, $interval);
+
 // Verify Master Password
 verifyMP($sql, $MP);
 

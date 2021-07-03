@@ -4,11 +4,11 @@ require 'commonCode.php';
 
 $sql = initSQLConnection();
 
-// TODO populate log table
-
 // Get input args
 $uKey = $_GET['uKey'];
 $justTest = (int) $_GET['justTest'];
+
+logRequest($sql, "enter", $uKey, $justTest);
 
 // Check if system is not locked
 $query = "SELECT * FROM system WHERE ID = 1 AND lockedUntil > NOW()";

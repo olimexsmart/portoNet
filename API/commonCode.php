@@ -49,3 +49,14 @@ function verifyMP($sql, $MP)
         queryWithError($sql, $query);
     }
 }
+
+/**
+ * Log a request with all the parameters
+ */
+function logRequest($sql, $APIName, ...$params) {
+    $imploded = implode('@', $params);
+    $query = "INSERT INTO logs(ID, APIName, dateRequest, params) 
+                VALUES(NULL, '$APIName', NOW(), '$imploded')";
+
+    queryWithError($sql, $query);
+}
