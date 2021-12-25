@@ -13,7 +13,7 @@ logRequest($sql, "logList", $MP);
 verifyMP($sql, $MP);
 
 // TODO add filters
-$query = "SELECT * FROM logs ORDER BY dateRequest DESC";
+$query = "SELECT * FROM logs ORDER BY dateRequest DESC LIMIT 20";
 $result = queryWithError($sql, $query);
 
 // Collect results

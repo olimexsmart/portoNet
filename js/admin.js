@@ -27,24 +27,28 @@ document.addEventListener("DOMContentLoaded", () => {
         oreDiv.classList.remove('d-none');
         userStuff.classList.remove('d-none');
         adminStuff.classList.remove('d-none');
+        listOl.classList.add('d-none');
         mode = 'add.php';
     });
     document.getElementById('btnSvuota').addEventListener('click', () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.add('d-none');
         adminStuff.classList.remove('d-none');
+        listOl.classList.add('d-none');
         mode = 'revokeAll.php';
     });
     document.getElementById('btnRevoca').addEventListener('click', () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.remove('d-none');
         adminStuff.classList.remove('d-none');
+        listOl.classList.add('d-none');
         mode = 'revoke.php';
     });
     document.getElementById('btnTest').addEventListener('click', () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.remove('d-none');
         adminStuff.classList.add('d-none');
+        listOl.classList.add('d-none');
         mode = 'enter.php';
         justTest = 1;
     });
@@ -52,12 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.add('d-none');
         adminStuff.classList.remove('d-none');
+        listOl.classList.remove('d-none');
         mode = 'keyList.php';
     });
     document.getElementById('btnLog').addEventListener('click', () => {
         oreDiv.classList.add('d-none');
         userStuff.classList.add('d-none');
         adminStuff.classList.remove('d-none');
+        listOl.classList.remove('d-none');
         mode = 'logList.php';
     });
 
@@ -101,9 +107,17 @@ document.addEventListener("DOMContentLoaded", () => {
             // Do not open the modal if we need to display the list
             if (mode == 'keyList.php') {
                 response.json().then((j) => {
-                    listOl.classList.remove('d-none');
-                    listOl.innerHTML = '';
+                    listOl.replaceChildren();
                     for (let i = 0; i < j.length; i++) {
+                        let badgeClass = 'primary'
+                        let badgeText = 'OK'
+                        if (j[i].revoked == '1') {
+                            badgeClass = 'danger'
+                            badgeText = 'REVOKED'
+                        } else if (Date.parse(j[i].expDate) - Date.now() < 0) {
+                            badgeClass = 'warning'
+                            badgeText = 'EXPIRED'
+                        }
                         let html = `<li class="list-group-item d-flex justify-content-between align-items-start">` +
                             `<div class="ms-2 me-auto">` +
                             `<div class="fw-bold fs-4">${j[i].uKey}</div>` +
@@ -111,8 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             `<b>Expiration date:</b> ${j[i].expDate}</br>` +
                             `<b>Used</b> ${j[i].nUsed} times` +
                             `</div>` +
-                            `<span class="badge bg-${j[i].revoked == '0' ? 'primary' : 'danger'} rounded-pill">` +
-                            `${j[i].revoked == '0' ? 'OK' : 'REVOKED'}` +
+                            `<span class="badge bg-${badgeClass} rounded-pill">${badgeText}` +
                             `</span>` +
                             `</li>`;
                         listOl.innerHTML += html;
@@ -120,8 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             } else if (mode == 'logList.php') {
                 response.json().then((j) => {
-                    listOl.classList.remove('d-none');
-                    listOl.innerHTML = '';
+                    listOl.replaceChildren();
                     for (let i = 0; i < j.length; i++) {
                         let html = `<li class="list-group-item d-flex justify-content-between align-items-start">` +
                             `<div class="ms-2 me-auto">` +
