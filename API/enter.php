@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
     $query = "UPDATE system SET nErrors = nErrors + 1 WHERE ID = 1";
     queryWithError($sql, $query);
     http_response_code(423);
-    die("System is locked");
+    die("Too many attempts, system is locked");
 } 
 
 // Reset nAttempts if last failed attempts was more than 15 ago
@@ -61,12 +61,11 @@ if ($result->num_rows == 1) {
         }        
         $resArr = $result->fetch_assoc();
         $nAttempts = $resArr['nAttempts'];
-        if($nAttempts >= 3) {
+        if($nAttempts > 10) {
             $query = "UPDATE system SET lockedUntil = DATE_ADD(NOW(), INTERVAL 15 MINUTE), 
                         nAttempts = 0, lastAttempt = NULL WHERE ID = 1";
             queryWithError($sql, $query);
         }
-
     }
 
     // Additional queries to understand the login failure
