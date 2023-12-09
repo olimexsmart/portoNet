@@ -9,5 +9,10 @@ function openDoor()
     system("gpio write 1 0");
 */
 
-  file_get_contents("http://192.168.1.33/open");
+  // Valid for custom Arduino board
+  //file_get_contents("http://192.168.1.33/open");
+
+  // Valid for HomeAssistant
+  require 'login.php';
+  shell_exec($curlOpen);
 }
