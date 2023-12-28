@@ -15,4 +15,6 @@ function openDoor()
   // Valid for HomeAssistant
   require 'login.php';
   shell_exec($curlOpen);
+  shell_exec($curlTTSAlexa);
+
 }
